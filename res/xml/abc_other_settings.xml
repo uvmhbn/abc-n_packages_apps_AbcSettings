@@ -73,5 +73,10 @@
             android:defaultValue="30" />
     </PreferenceCategory>
 
+    <PreferenceScreen
+       android:id="@+id/alarm_blocker"
+       android:title="@string/alarm_blocker"
+       android:fragment="com.abc.settings.fragments.AlarmBlocker" />
+
 </PreferenceScreen>
 
