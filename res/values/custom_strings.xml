@@ -190,9 +190,12 @@
     <string name="keyguard_torch_title">Lockscreen torch</string>
     <string name="keyguard_torch_summary">Longpress power button while screen is off to turn on flashlight</string>
 
-    <!-- Screenshot sound -->
+    <!-- Screenshot -->
+    <string name="screenshot_cat_title">Screenshot</string>
     <string name="screenshot_sound_title">Screenshot sound</string>
     <string name="screenshot_sound_summary">Plays sound effect when screenshot is taken</string>
+    <string name="screenshot_delay_title">Screenshot delay</string>
+    <string name="screenshot_delay_summary">Adjust the time for when a screenshot is captured</string>
 
     <!-- Lockscreen battery info indicator  -->
     <string name="lockscreen_battery_info_title">Lockscreen charging info</string>
@@ -209,10 +212,6 @@
     <string name="sms_outgoing_check_max_count_default">30 per minute (default)</string>
     <string name="sms_outgoing_check_max_count_hundred">100 per minute</string>
     <string name="sms_outgoing_check_max_count_sixhundred">600 per minute</string>
-
-    <!-- Screenshot delay -->
-    <string name="screenshot_delay_title">Screenshot delay</string>
-    <string name="screenshot_delay_summary">Adjust the time for when a screenshot is captured</string>
 
     <string name="color_picker_dialog_title">Color</string>
 
@@ -510,4 +509,8 @@
     <string name="headsup_enabled">Heads up</string>
     <string name="ticker_enabled">Statusbar notification ticker</string>
     <string name="headsup_ticker_disabled">Heads up and Ticker disabled</string>
+
+    <!-- In-call DND -->
+    <string name="dnd_when_call_title">In-Call Do not Disturb</string>
+    <string name="dnd_when_call_summary">Enable Do not Disturb mode during calls</string>
 </resources>

@@ -14,22 +14,32 @@
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
     <com.abc.settings.preferences.SystemSettingSwitchPreference
+        android:key="dnd_when_call"
+        android:title="@string/dnd_when_call_title"
+        android:summary="@string/dnd_when_call_summary"
+        android:defaultValue="true" />
+
+    <com.abc.settings.preferences.SystemSettingSwitchPreference
+        android:key="double_tap_wake_doze"
+        android:title="@string/double_tap_wake_doze_title"
+        android:summary="@string/double_tap_wake_doze_summary"
+        android:defaultValue="true" />
+
+    <com.abc.settings.preferences.SystemSettingSwitchPreference
         android:key="toast_icon"
         android:title="@string/toast_icon_title"
         android:summary="@string/toast_icon_summary"
         android:defaultValue="true" />
+
+    <PreferenceCategory
+        android:key="screenshot_cat"
+        android:title="@string/screenshot_cat_title" >
 
     <com.abc.settings.preferences.SystemSettingSwitchPreference
         android:key="screenshot_sound"
         android:title="@string/screenshot_sound_title"
         android:summary="@string/screenshot_sound_summary"
         android:defaultValue="false" />
-
-    <com.abc.settings.preferences.SystemSettingSwitchPreference
-            android:key="double_tap_wake_doze"
-            android:title="@string/double_tap_wake_doze_title"
-            android:summary="@string/double_tap_wake_doze_summary"
-            android:defaultValue="true" />
 
     <com.abc.settings.preferences.CustomSeekBarPreference
         android:key="screenshot_delay"
@@ -40,6 +50,7 @@
             settings:interval="100"
             settings:units="ms"
             android:persistent="false" />
+    </PreferenceCategory>
 
     <PreferenceCategory
         android:key="apps_security"
