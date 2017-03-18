@@ -115,7 +115,7 @@
 
     <!-- QS easy toggles -->
     <string name="qs_easy_toggle_title">Advanced QS Easy Toggle</string>
-    <string name="qs_easy_toggle_summary">Enable one tap action to enable or disable mobile data, Wi-Fi, and Bluetooth</string>
+    <string name="qs_easy_toggle_summary">Enable one tap action to enable/disable mobile data, wifi, location and bluetooth</string>
 
     <!-- Volume Key Rotation -->
     <string name="swap_volume_buttons_title">Reorient</string>
