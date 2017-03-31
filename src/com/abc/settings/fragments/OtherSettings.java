@@ -42,8 +42,10 @@ public class OtherSettings extends SettingsPreferenceFragment implements
     private static final String APPS_SECURITY = "apps_security";
     private static final String SMS_OUTGOING_CHECK_MAX_COUNT = "sms_outgoing_check_max_count";
     private static final String SCREENSHOT_DELAY = "screenshot_delay";
+    private static final String PREF_MEDIA_SCANNER_ON_BOOT = "media_scanner_on_boot";
 
     private ListPreference mSmsCount;
+    private ListPreference mMsob;
     private int mSmsCountValue;
     private CustomSeekBarPreference mScreenshotDelay;
 
@@ -72,6 +74,13 @@ public class OtherSettings extends SettingsPreferenceFragment implements
                 Settings.System.SCREENSHOT_DELAY, 1000, UserHandle.USER_CURRENT);
         mScreenshotDelay.setValue(screenshotDelay / 1);
         mScreenshotDelay.setOnPreferenceChangeListener(this);
+
+        mMsob = (ListPreference) prefSet.findPreference(PREF_MEDIA_SCANNER_ON_BOOT);
+        mMsob.setOnPreferenceChangeListener(this);
+        mMsob.setValue(Integer.toString(Settings.System.getInt(getActivity()
+                        .getContentResolver(), Settings.System.MEDIA_SCANNER_ON_BOOT,
+                0)));
+        mMsob.setSummary(mMsob.getEntry());
     }
 
     @Override
@@ -96,6 +105,13 @@ public class OtherSettings extends SettingsPreferenceFragment implements
             int screenshotDelay = (Integer) newValue;
             Settings.System.putIntForUser(resolver,
                     Settings.System.SCREENSHOT_DELAY, screenshotDelay * 1, UserHandle.USER_CURRENT);
+            return true;
+        } else if (preference == mMsob) {
+            int val = Integer.parseInt((String) newValue);
+            int index = mMsob.findIndexOfValue((String) newValue);
+            Settings.System.putInt(resolver,
+                    Settings.System.MEDIA_SCANNER_ON_BOOT,val);
+            mMsob.setSummary(mMsob.getEntries()[index]);
             return true;
         }
         return false;

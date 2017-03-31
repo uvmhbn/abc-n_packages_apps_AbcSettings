@@ -52,6 +52,13 @@
             android:persistent="false" />
     </PreferenceCategory>
 
+    <ListPreference
+        android:key="media_scanner_on_boot"
+        android:title="@string/media_scanner_on_boot_title"
+        android:entries="@array/media_scanner_on_boot_entries"
+        android:entryValues="@array/media_scanner_on_boot_values"
+        android:persistent="false" />
+
     <PreferenceCategory
         android:key="apps_security"
         android:title="@string/apps_security_options_title" >
