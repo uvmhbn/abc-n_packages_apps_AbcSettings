@@ -75,10 +75,10 @@ public class OtherSettings extends SettingsPreferenceFragment implements
         mScreenshotDelay.setValue(screenshotDelay / 1);
         mScreenshotDelay.setOnPreferenceChangeListener(this);
 
-        mMsob = (ListPreference) prefSet.findPreference(PREF_MEDIA_SCANNER_ON_BOOT);
+        mMsob = (ListPreference) prefScreen.findPreference(PREF_MEDIA_SCANNER_ON_BOOT);
         mMsob.setOnPreferenceChangeListener(this);
         mMsob.setValue(Integer.toString(Settings.System.getInt(getActivity()
-                        .getContentResolver(), Settings.System.MEDIA_SCANNER_ON_BOOT,
+                        .getContentResolver(), Settings.System.PREF_MEDIA_SCANNER_ON_BOOT,
                 0)));
         mMsob.setSummary(mMsob.getEntry());
     }
@@ -110,7 +110,7 @@ public class OtherSettings extends SettingsPreferenceFragment implements
             int val = Integer.parseInt((String) newValue);
             int index = mMsob.findIndexOfValue((String) newValue);
             Settings.System.putInt(resolver,
-                    Settings.System.MEDIA_SCANNER_ON_BOOT,val);
+                    Settings.System.PREF_MEDIA_SCANNER_ON_BOOT,val);
             mMsob.setSummary(mMsob.getEntries()[index]);
             return true;
         }
