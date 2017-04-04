@@ -161,7 +161,7 @@ public class AlarmBlocker extends SettingsPreferenceFragment {
     }
 
     protected int getMetricsCategory() {
-        return MetricsEvent.SCREWD;
+        return MetricsEvent.ABC;
     }
 
     @Override
