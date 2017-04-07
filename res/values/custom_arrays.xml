@@ -385,6 +385,7 @@
     <string-array name="notification_mode_entries">
         <item>@string/headsup_enabled</item>
         <item>@string/ticker_enabled</item>
+        <item>@string/ticker_media_enabled</item>
         <item>@string/headsup_ticker_disabled</item>
     </string-array>
 
@@ -392,5 +393,6 @@
         <item>0</item>
         <item>1</item>
         <item>2</item>
+        <item>3</item>
     </string-array>
 </resources>

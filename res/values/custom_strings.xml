@@ -514,6 +514,7 @@
     <string name="notification_mode_title">Notifications mode</string>
     <string name="headsup_enabled">Heads up</string>
     <string name="ticker_enabled">Statusbar notification ticker</string>
+    <string name="ticker_media_enabled">Notifications and music ticker</string>
     <string name="headsup_ticker_disabled">Heads up and Ticker disabled</string>
 
     <!-- In-call DND -->
