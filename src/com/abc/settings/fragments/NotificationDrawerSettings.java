@@ -63,10 +63,10 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
         int notificationMode;
         if (headsupMode == 1) {
             notificationMode = 0;
-        } else if (tickerMode == 1) {
-            notificationMode = 1;
+        } else if (tickerMode != 0) {
+            notificationMode = tickerMode == 1 ? 1 : 2;
         } else {
-            notificationMode = 2;
+            notificationMode = 3;
         }
         mNotificationMode.setValue(String.valueOf(notificationMode));
         mNotificationMode.setSummary(mNotificationMode.getEntry());
@@ -90,7 +90,10 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
             } else if (notificationMode == 1) {
                 headsupMode = 0;
                 tickerMode = 1;
-            } else {
+            } else if (notificationMode == 2) {
+                headsupMode = 0;
+                tickerMode = 2;
+            }else {
                 headsupMode = 0;
                 tickerMode = 0;
             }

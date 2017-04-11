@@ -35,7 +35,6 @@ import com.android.settings.SettingsPreferenceFragment;
 public class PowerSettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
 
-    private static final String KEY_PROXIMITY_WAKE = "proximity_on_wake";
     private static final String KEYGUARD_TOGGLE_TORCH = "keyguard_toggle_torch";
 
     private SwitchPreference mKeyguardTorch;
@@ -48,13 +47,6 @@ public class PowerSettings extends SettingsPreferenceFragment implements
         final Activity activity = getActivity();
         final ContentResolver resolver = activity.getContentResolver();
         PreferenceScreen prefSet = getPreferenceScreen();
-
-        boolean proximityCheckOnWake = getResources().getBoolean(
-                com.android.internal.R.bool.config_proximityCheckOnWake);
-        if (!proximityCheckOnWake) {
-            getPreferenceScreen().removePreference(findPreference(KEY_PROXIMITY_WAKE));
-            Settings.System.putInt(resolver, Settings.System.PROXIMITY_ON_WAKE, 0);
-        }
 
         mKeyguardTorch = (SwitchPreference) findPreference(KEYGUARD_TOGGLE_TORCH);
         mKeyguardTorch.setOnPreferenceChangeListener(this);

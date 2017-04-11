@@ -14,12 +14,6 @@
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
     <com.abc.settings.preferences.SystemSettingSwitchPreference
-        android:key="proximity_on_wake"
-        android:title="@string/proximity_wake_title"
-        android:summary="@string/proximity_wake_summary"
-        android:defaultValue="false" />
-
-    <com.abc.settings.preferences.SystemSettingSwitchPreference
         android:key="keyguard_toggle_torch"
         android:title="@string/keyguard_torch_title"
         android:summary="@string/keyguard_torch_summary"
