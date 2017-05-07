@@ -516,4 +516,8 @@
     <!-- In-call DND -->
     <string name="dnd_when_call_title">In-Call Do not Disturb</string>
     <string name="dnd_when_call_summary">Enable Do not Disturb mode during calls</string>
+
+    <!-- QS footer warnings -->
+    <string name="qs_footer_warnings_title">QS footer warnings</string>
+    <string name="qs_footer_warnings_summary">Display a warning at bottom of QS panel when network is monitored by external apps or vpn</string>
 </resources>
