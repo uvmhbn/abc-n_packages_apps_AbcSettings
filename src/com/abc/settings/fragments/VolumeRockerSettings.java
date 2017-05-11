@@ -34,11 +34,13 @@ import com.android.settings.SettingsPreferenceFragment;
 public class VolumeRockerSettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
 
+    private static final String HEADSET_CONNECT_PLAYER = "headset_connect_player";
     private static final String SWAP_VOLUME_BUTTONS = "swap_volume_buttons";
     private static final String VOLUME_ROCKER_WAKE = "volume_rocker_wake";
     private static final String VOLUME_ROCKER_MUSIC_CONTROLS = "volume_rocker_music_controls";
     private static final String WIRED_RINGTONE_FOCUS_MODE = "wired_ringtone_focus_mode";
 
+    private ListPreference mLaunchPlayerHeadsetConnection;
     private ListPreference mWiredHeadsetRingtoneFocus;
     private SwitchPreference mSwapVolumeButtons;
     private SwitchPreference mVolumeRockerWake;
@@ -77,6 +79,13 @@ public class VolumeRockerSettings extends SettingsPreferenceFragment implements
         mWiredHeadsetRingtoneFocus.setValue(Integer.toString(mWiredHeadsetRingtoneFocusValue));
         mWiredHeadsetRingtoneFocus.setSummary(mWiredHeadsetRingtoneFocus.getEntry());
         mWiredHeadsetRingtoneFocus.setOnPreferenceChangeListener(this);
+
+        mLaunchPlayerHeadsetConnection = (ListPreference) findPreference(HEADSET_CONNECT_PLAYER);
+        int mLaunchPlayerHeadsetConnectionValue = Settings.System.getIntForUser(resolver,
+                Settings.System.HEADSET_CONNECT_PLAYER, 0, UserHandle.USER_CURRENT);
+        mLaunchPlayerHeadsetConnection.setValue(Integer.toString(mLaunchPlayerHeadsetConnectionValue));
+        mLaunchPlayerHeadsetConnection.setSummary(mLaunchPlayerHeadsetConnection.getEntry());
+        mLaunchPlayerHeadsetConnection.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -110,6 +119,14 @@ public class VolumeRockerSettings extends SettingsPreferenceFragment implements
                     mWiredHeadsetRingtoneFocus.getEntries()[index]);
             Settings.Global.putInt(resolver, Settings.Global.WIRED_RINGTONE_FOCUS_MODE,
                     mWiredHeadsetRingtoneFocusValue);
+            return true;
+        } else if (preference == mLaunchPlayerHeadsetConnection) {
+            int mLaunchPlayerHeadsetConnectionValue = Integer.valueOf((String) newValue);
+            int index = mLaunchPlayerHeadsetConnection.findIndexOfValue((String) newValue);
+            mLaunchPlayerHeadsetConnection.setSummary(
+                    mLaunchPlayerHeadsetConnection.getEntries()[index]);
+            Settings.System.putIntForUser(resolver, Settings.System.HEADSET_CONNECT_PLAYER,
+                    mLaunchPlayerHeadsetConnectionValue, UserHandle.USER_CURRENT);
             return true;
         }
         return false;
