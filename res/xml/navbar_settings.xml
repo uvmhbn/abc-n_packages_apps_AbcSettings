@@ -22,6 +22,12 @@
         android:key="navbar_visibility"
         android:title="@string/navbar_visibility" />
 
+    <com.abc.settings.preferences.SystemSettingSwitchPreference
+        android:key="no_navigation_notif"
+        android:title="@string/no_navigation_notif_title"
+        android:summary="@string/no_navigation_notif_summary"
+        android:defaultValue="true" />
+
     <PreferenceCategory
         android:key="category_navbar_interface"
         android:title="@string/navbar_interface_title" >
