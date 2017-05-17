@@ -291,7 +291,6 @@
     <string name="status_bar_battery_percentage_text_next">Next to the icon</string>
     <string name="battery_tile_style_title">Battery tile style</string>
     <string name="status_bar_battery_style_tile_summary">Allow to set the same icon style chosen for the statusbar battery</string>
-    <string name="status_bar_charge_color_title">Set statusbar battery icon color when charging</string>
     <string name="force_charge_battery_text_title">Show percentage near battery when charging</string>
     <string name="force_charge_battery_text_summary_on">Show the battery percentage outside the icon when charging</string>
     <string name="force_charge_battery_text_summary_off">Show the battery percentage inside the icon when charging</string>
@@ -540,4 +539,17 @@
     <!-- QS footer warnings -->
     <string name="qs_footer_warnings_title">QS footer warnings</string>
     <string name="qs_footer_warnings_summary">Display a warning at bottom of QS panel when network is monitored by external apps or vpn</string>
+
+    <!-- Launch music player when headset is connected -->
+    <string name="headset_connect_player_title">Launch music app on headset connection</string>
+    <string name="headset_connect_player_disabled">Disabled</string>
+    <string name="headset_connect_player_wired">When wired headset is plugged in</string>
+    <string name="headset_connect_player_bt_no_carkit">When BT headset (no carkit) is plugged in</string>
+    <string name="headset_connect_player_bt">When BT headset is plugged in</string>
+    <string name="headset_connect_player_both_no_carkit">When wired or BT headset (no carkit) is plugged in</string>
+    <string name="headset_connect_player_both">When wired or BT headset is plugged in</string>
+
+    <!-- No navigation notification -->
+    <string name="no_navigation_notif_title">No navigation method reminder</string>
+    <string name="no_navigation_notif_summary">Show a notification when no navigation method enabled</string>
 </resources>
