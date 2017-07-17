@@ -473,6 +473,7 @@
     <string name="smartbar_longpress_delay_default">Default delay (fast)</string>
     <string name="smartbar_longpress_delay_normal">Normal delay</string>
     <string name="smartbar_longpress_delay_long">Long delay</string>
+    <string name="smartbar_custom_icon_size_title">Custom icon scaling</string>
 
     <!-- Wired headset ringtone audio focus -->
     <string name="wired_ringtone_focus_mode_title">Where to play ringtones from</string>
