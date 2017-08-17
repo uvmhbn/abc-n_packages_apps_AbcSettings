@@ -23,6 +23,14 @@
         android:title="@string/smartbar_editor_title"
         android:summary="@string/smartbar_editor_summary" />
 
+    <com.abc.settings.preferences.CustomSeekBarPreference
+        android:key="smartbar_custom_icon_size"
+        android:title="@string/smartbar_custom_icon_size_title"
+        android:max="100"
+        settings:min="10"
+        settings:units="%"
+        android:persistent="false" />
+
     <ListPreference
         android:key="smartbar_context_menu_position"
         android:title="@string/smartbar_context_menu_position_title"
@@ -43,6 +51,13 @@
         android:entries="@array/smartbar_button_animation_entries"
         android:entryValues="@array/smartbar_button_animation_values"
         android:summary="@string/smartbar_button_animation_summary" />
+
+    <ListPreference
+        android:key="smartbar_longpress_delay"
+        android:title="@string/smartbar_longpress_delay_title"
+        android:entries="@array/smartbar_longpress_delay_entries"
+        android:entryValues="@array/smartbar_longpress_delay_values"
+        android:summary="@string/smartbar_longpress_delay_summary" />
 
     <com.abc.settings.preferences.CustomSeekBarPreference
         android:key="navbar_buttons_alpha"

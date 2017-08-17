@@ -56,6 +56,7 @@ import android.widget.Toast;
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.MetricsProto.MetricsEvent;
 import com.android.internal.utils.du.ActionConstants;
+import com.android.internal.utils.du.ActionHandler;
 import com.android.internal.utils.du.Config;
 import com.android.internal.utils.du.Config.ButtonConfig;
 import com.android.settings.R;
@@ -67,7 +68,9 @@ public class SmartbarSettings extends SettingsPreferenceFragment implements
     private ListPreference mSmartBarContext;
     private ListPreference mImeActions;
     private ListPreference mButtonAnim;
+    private ListPreference mButtonLongpressDelay;
     private CustomSeekBarPreference mButtonsAlpha;
+    private CustomSeekBarPreference mCustomButtonScaling;
 
     private static final int MENU_RESET = Menu.FIRST;
     private static final int MENU_SAVE = Menu.FIRST + 1;
@@ -83,6 +86,7 @@ public class SmartbarSettings extends SettingsPreferenceFragment implements
     private static final String KEY_SMARTBAR_BACKUP = "smartbar_profile_save";
     private static final String KEY_SMARTBAR_RESTORE = "smartbar_profile_restore";
     private static final String PREF_NAVBAR_BUTTONS_ALPHA = "navbar_buttons_alpha";
+    private static final String PREF_SMARTBAR_CUSTOM_ICON_SIZE = "smartbar_custom_icon_size";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -110,9 +114,22 @@ public class SmartbarSettings extends SettingsPreferenceFragment implements
         mButtonsAlpha =
                 (CustomSeekBarPreference) findPreference(PREF_NAVBAR_BUTTONS_ALPHA);
         int bAlpha = Settings.Secure.getIntForUser(getContentResolver(),
-                Settings.Secure.NAVBAR_BUTTONS_ALPHA, 255, UserHandle.USER_CURRENT);
+                "navbar_buttons_alpha", 255, UserHandle.USER_CURRENT);
         mButtonsAlpha.setValue(bAlpha / 1);
         mButtonsAlpha.setOnPreferenceChangeListener(this);
+
+        int longpressDelayVal = Settings.Secure.getIntForUser(getContentResolver(),
+                "smartbar_longpress_delay", 0, UserHandle.USER_CURRENT);
+        mButtonLongpressDelay = (ListPreference) findPreference("smartbar_longpress_delay");
+        mButtonLongpressDelay.setValue(String.valueOf(longpressDelayVal));
+        mButtonLongpressDelay.setOnPreferenceChangeListener(this);
+
+        mCustomButtonScaling =
+                (CustomSeekBarPreference) findPreference(PREF_SMARTBAR_CUSTOM_ICON_SIZE);
+        int size = Settings.Secure.getIntForUser(getContentResolver(),
+                "smartbar_custom_icon_size", 60, UserHandle.USER_CURRENT);
+        mCustomButtonScaling.setValue(size);
+        mCustomButtonScaling.setOnPreferenceChangeListener(this);
 
         setHasOptionsMenu(true);
     }
@@ -192,7 +209,7 @@ public class SmartbarSettings extends SettingsPreferenceFragment implements
     @Override
     public boolean onPreferenceTreeClick(Preference preference) {
         if (preference == findPreference("smartbar_editor_mode")) {
-            getActivity().sendBroadcastAsUser(new Intent("intent_navbar_edit"), UserHandle.CURRENT);
+            ActionHandler.performTask(getActivity(), ActionHandler.SYSTEMUI_TASK_EDITING_SMARTBAR);
             return true;
         }
         return super.onPreferenceTreeClick(preference);
@@ -248,7 +265,17 @@ public class SmartbarSettings extends SettingsPreferenceFragment implements
         } else if (preference == mButtonsAlpha) {
             int val = (Integer) newValue;
             Settings.Secure.putIntForUser(getContentResolver(),
-                    Settings.Secure.NAVBAR_BUTTONS_ALPHA, val * 1, UserHandle.USER_CURRENT);
+                    "navbar_buttons_alpha", val * 1, UserHandle.USER_CURRENT);
+            return true;
+        } else if (preference == mButtonLongpressDelay) {
+            int val = Integer.parseInt(((String) newValue).toString());
+            Settings.Secure.putIntForUser(getContentResolver(),
+                    "smartbar_longpress_delay", val, UserHandle.USER_CURRENT);
+            return true;
+        } else if (preference == mCustomButtonScaling) {
+            int val = (Integer) newValue;
+            Settings.Secure.putIntForUser(getContentResolver(),
+                    "smartbar_custom_icon_size", val, UserHandle.USER_CURRENT);
             return true;
         }
         return false;
@@ -256,14 +283,13 @@ public class SmartbarSettings extends SettingsPreferenceFragment implements
 
     private void resetSmartbar() {
         ArrayList<ButtonConfig> buttonConfigs = Config.getDefaultConfig(
-               getActivity(),
-        ActionConstants.getDefaults(ActionConstants.SMARTBAR));
-               Config.setConfig(getActivity(),
-        ActionConstants.getDefaults(ActionConstants.SMARTBAR),
-               buttonConfigs);
-        Intent intent = new Intent("intent_navbar_edit");
-        intent.putExtra("extra_navbar_edit_reset_layout", "resetMePlox");
-        getActivity().sendBroadcastAsUser(intent, UserHandle.CURRENT);
+                getActivity(),
+                ActionConstants.getDefaults(ActionConstants.SMARTBAR));
+        Config.setConfig(getActivity(),
+                ActionConstants.getDefaults(ActionConstants.SMARTBAR),
+                buttonConfigs);
+        Intent intent = new Intent("intent_navbar_edit_reset_layout");
+        ActionHandler.dispatchNavigationEditorResult(intent);
 
         Settings.Secure.putInt(getContentResolver(),
                 "smartbar_context_menu_mode", 0);
@@ -283,6 +309,16 @@ public class SmartbarSettings extends SettingsPreferenceFragment implements
         Settings.Secure.putInt(getContentResolver(),
                 "navbar_buttons_alpha", 255);
         mButtonsAlpha.setValue(255);
+        mButtonsAlpha.setOnPreferenceChangeListener(this);
+
+        Settings.Secure.putInt(getContentResolver(),
+                "smartbar_longpress_delay", 0);
+        mButtonLongpressDelay.setValue(String.valueOf(0));
+        mButtonLongpressDelay.setOnPreferenceChangeListener(this);
+
+        Settings.Secure.putInt(getContentResolver(),
+                "smartbar_custom_icon_size", 60);
+        mButtonsAlpha.setValue(60);
         mButtonsAlpha.setOnPreferenceChangeListener(this);
     }
 
@@ -345,9 +381,8 @@ public class SmartbarSettings extends SettingsPreferenceFragment implements
                 ActionConstants.getDefaults(ActionConstants.SMARTBAR)
                         .getUri(), config,
                 UserHandle.USER_CURRENT);
-        Intent intent = new Intent("intent_navbar_edit");
-        intent.putExtra("extra_navbar_edit_reset_layout", "resetMePlox");
-        context.sendBroadcastAsUser(intent, UserHandle.CURRENT);
+        Intent intent = new Intent("intent_navbar_edit_reset_layout");
+        ActionHandler.dispatchNavigationEditorResult(intent);
     }
 
     static void backupSmartbarConfig(String config, String suffix) {
